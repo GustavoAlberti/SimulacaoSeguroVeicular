@@ -3,6 +3,7 @@ using SimulacaoSeguroVeicular.Domain.Simulacoes;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Application.InputModel;
+using SimulacaoSeguroVeicular.Domain.Simulacoes.Value_Objects;
 using SimulacaoSeguroVeicular.Dominio.Simulacoes;
 
 namespace SimulacaoSeguroVeicular.Controllers
@@ -13,7 +14,7 @@ namespace SimulacaoSeguroVeicular.Controllers
     {
 
         [HttpPost("criar")]
-        public async Task<IActionResult> CriarProposta(
+        public async Task<IActionResult> CriarCotacao(
             [FromBody] CriarSimulacaoInputModel input,
             [FromServices] CriarCotacaoHandler handler,
             CancellationToken cancellationToken)
@@ -23,7 +24,7 @@ namespace SimulacaoSeguroVeicular.Controllers
                 input.ModeloVeiculo,
                 input.AnoVeiculo,
 
-                input.CpfPropietario,
+                input.CpfProprietario,
                 input.NomeProprietario,
                 new Endereco(
                     input.EnderecoProprietario.Cep,

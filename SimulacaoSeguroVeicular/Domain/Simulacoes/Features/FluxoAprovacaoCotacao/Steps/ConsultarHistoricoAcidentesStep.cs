@@ -1,15 +1,26 @@
-﻿using SimulacaoSeguroVeicular.Infrastructure.Data;
+﻿using SimulacaoSeguroVeicular.Domain.Simulacoes.Services;
+using SimulacaoSeguroVeicular.Infrastructure.Data;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
 namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Features.FluxoAprovacaoCotacao.Steps
 {
-    public class ConsultarHistoricoAcidentesStep(CotacaoRepositorio cotacaoRepository, UnitOfWork unitOfWork) : StepBodyAsync
+    public class ConsultarHistoricoAcidentesStep(CotacaoRepositorio cotacaoRepositorio, UnitOfWork unitOfWork, FakeConsultarHistoricoAcidentesService fakeConsultarHistoricoAcidentesService) : StepBodyAsync
     {
         public int CotacaoId { get; set; }
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            throw new NotImplementedException();
+            var cotacaoMaybe = await cotacaoRepositorio.Obter(CotacaoId, CancellationToken.None);
+            if (cotacaoMaybe.HasNoValue)
+                return ExecutionResult.Next();
+
+            var cotacao = cotacaoMaybe.Value;
+
+            var historicoAcidentes = await fakeConsultarHistoricoAcidentesService.ConsultarHistoricoAcidentesAsync(cotacao.Condutor.Cpf);
+
+            await unitOfWork.CommitAsync(CancellationToken.None);
+
+            return ExecutionResult.Next();
         }
     }
 }

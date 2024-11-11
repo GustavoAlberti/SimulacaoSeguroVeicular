@@ -5,7 +5,7 @@
             string ModeloVeiculo,
             int AnoVeiculo,
 
-            string CpfPropietario,
+            string CpfProprietario,
             string NomeProprietario,
             DateTime DataNascimentoProprietario,
             EnderecoInputModel EnderecoProprietario,

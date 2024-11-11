@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Features.FluxoAprovacaoCotacao;
+using SimulacaoSeguroVeicular.Domain.Simulacoes.Value_Objects;
 using SimulacaoSeguroVeicular.Dominio.Simulacoes;
 using SimulacaoSeguroVeicular.Infrastructure.Data;
 using WorkflowCore.Interface;
@@ -34,7 +35,6 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers
             await unitOfWork.CommitAsync(cancellationToken);
 
             // Inicia o workflow de análise da simulacao
-
             await workflowHost.StartWorkflow(
                 "CotacaoWorkflow",
                 new CotacaoWorkflowData
@@ -54,10 +54,10 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers
 
         //Deve consultar e complementar a simulação com informações adicionais, incluindo:
 
-        //Tabela Fipe: verificar o valor de mercado do veículo com base em uma API simulada -- service
-        //Historico acidentes: consultar um histórico de acidentes do condutor com base em uma API simulada -- service
+        //Tabela Fipe: verificar o valor de mercado do veículo com base em uma API simulada -- service - step 1
+        //Historico acidentes: consultar um histórico de acidentes do condutor com base em uma API simulada -- service - step 2
 
-        //Nível de Risco: calcular um índice de risco com base na idade do condutor, histórico de direção e localidade. 1 step workflow
+        //Nível de Risco: calcular um índice de risco com base na idade do condutor, histórico de direção e localidade. 3 step workflow
 
         //Deve consultar as e complementar a simulação com informações adicionais, incluindo:
 
@@ -75,7 +75,6 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers
         //41 - 60 anos: 3 pontos
         //Acima de 60 anos: 10 pontos
 
-        //montar uma strategy talvez passando a idade do condutor ou apenas usar o método da classe Cobertura para calucular a pontuacao.
         //var pontuacaoIdadeCondutor = condutor.Idade; //PASSANDO A IDADE DO CONDUTOR
 
         //Variavel de Histórico de Acidentes

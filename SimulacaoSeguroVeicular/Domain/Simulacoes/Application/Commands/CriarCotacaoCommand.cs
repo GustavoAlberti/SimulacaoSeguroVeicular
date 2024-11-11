@@ -1,4 +1,5 @@
-﻿using SimulacaoSeguroVeicular.Dominio.Simulacoes;
+﻿using SimulacaoSeguroVeicular.Domain.Simulacoes.Value_Objects;
+using SimulacaoSeguroVeicular.Dominio.Simulacoes;
 
 namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands
 {

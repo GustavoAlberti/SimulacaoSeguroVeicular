@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SimulacaoSeguroVeicular.Domain.Simulacoes;
 using SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers;
+using SimulacaoSeguroVeicular.Domain.Simulacoes.Features.FluxoAprovacaoCotacao;
+using SimulacaoSeguroVeicular.Domain.Simulacoes.Services;
+using SimulacaoSeguroVeicular.Extensions;
 using SimulacaoSeguroVeicular.Infrastructure.Data;
 using WorkflowCore.Interface;
 
@@ -15,6 +18,12 @@ builder.Services.AddScoped<CriarCotacaoHandler>();
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddWorkflow();
+builder.Services.AddWorkflowSteps();
+builder.Services.AddTransient<CotacaoWorkFlow>();
+builder.Services.AddScoped<FakeTabelaFipeService>();
+builder.Services.AddScoped<FakeConsultarHistoricoAcidentesService>();
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -35,9 +44,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Obtém o WorkflowHost e registra o workflow
 var workflowHost = app.Services.GetRequiredService<IWorkflowHost>();
+workflowHost.RegisterWorkflow<CotacaoWorkFlow, CotacaoWorkflowData>(); // Registra o workflow
 workflowHost.Start();
-//entender melhor
+
+// Garante que o WorkflowHost será parado quando a aplicação for encerrada
 app.Lifetime.ApplicationStopped.Register(() => workflowHost.Stop());
 
 app.Run();
