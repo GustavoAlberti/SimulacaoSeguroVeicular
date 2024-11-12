@@ -63,7 +63,8 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers
 
 
         //Calculo do nível de risco.
-        //O nível de risco é determinado com base em variáveis comuns em avaliações de seguros veiculares, como idade do condutor, histórico de direção e localidade de residência.
+        //O nível de risco é determinado com base em variáveis comuns em avaliações de seguros veiculares,
+        //como idade do condutor, histórico de direção e localidade de residência.
         //Cada variável tem uma pontuação que aumenta ou reduz o nível de risco.
 
         //Variaveis e pontuacoes:
@@ -107,7 +108,7 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Handlers
 
         //FIM INFORMACOES COMPLEMENTARES.
 
-        //Calculo do valor do Seguro. 2 step workflow provavelmente
+        //Calculo do valor do Seguro.
 
         //O cálculo do seguro deve ser feito com base nas informações complementares e nas coberturas escolhidas. 
         // A aplicação deve considerar:

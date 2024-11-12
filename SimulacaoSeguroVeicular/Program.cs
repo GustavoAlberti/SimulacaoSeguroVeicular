@@ -16,12 +16,15 @@ builder.Services.AddDbContext<CotacaoDbContext>(options =>
 builder.Services.AddScoped <CotacaoRepositorio>();
 builder.Services.AddScoped<CriarCotacaoHandler>();
 builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddScoped<AprovarCotacaoHandler>();
 
 builder.Services.AddWorkflow();
 builder.Services.AddWorkflowSteps();
 builder.Services.AddTransient<CotacaoWorkFlow>();
 builder.Services.AddScoped<FakeTabelaFipeService>();
 builder.Services.AddScoped<FakeConsultarHistoricoAcidentesService>();
+builder.Services.AddScoped<CalculaPontuacaoNivelRiscoService>();
+builder.Services.AddScoped<ValorSeguroService>();
 
 
 

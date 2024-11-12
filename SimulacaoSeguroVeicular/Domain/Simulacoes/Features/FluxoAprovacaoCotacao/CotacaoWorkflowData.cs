@@ -3,6 +3,5 @@
     public class CotacaoWorkflowData
     {
         public int CotacaoId { get; set; }
-        public bool Aprovada { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimulacaoSeguroVeicular.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SimulacaoSeguroVeicular.Infrastructure.Data;
 namespace SimulacaoSeguroVeicular.Migrations
 {
     [DbContext(typeof(CotacaoDbContext))]
-    partial class CotacaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241112021032_inclui coluna")]
+    partial class incluicoluna
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,69 +24,6 @@ namespace SimulacaoSeguroVeicular.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("SimulacaoSeguroVeicular.Domain.Simulacoes.Apolice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AnoVeiculo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CotacaoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CpfCondutor")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<string>("CpfProprietario")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<DateTime>("DataEmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataVigencia")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MarcaVeiculo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ModeloVeiculo")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("NomeCondutor")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("NomeProprietario")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("TipoCobertura")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("ValorSeguroTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("APOLICES", (string)null);
-                });
 
             modelBuilder.Entity("SimulacaoSeguroVeicular.Dominio.Simulacoes.CotacaoSeguroVeicular", b =>
                 {
@@ -103,7 +43,7 @@ namespace SimulacaoSeguroVeicular.Migrations
                     b.Property<int?>("NivelDeRisco")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NumeroDeAcidentes")
+                    b.Property<int>("NumeroDeAcidentes")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")

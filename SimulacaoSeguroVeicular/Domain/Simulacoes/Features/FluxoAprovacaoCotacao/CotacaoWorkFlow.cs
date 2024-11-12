@@ -22,9 +22,10 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Features.FluxoAprovacaoCotac
                     .Input(step => step.CotacaoId, data => data.CotacaoId)
                 .Then<AprovarSeguroStep>()
                     .Input(step => step.CotacaoId, data => data.CotacaoId)
+                .WaitFor("AprovacaoEvent", (data) => data.CotacaoId.ToString())
                 .Then<EmitirApoliceStep>()
-                    .Input(step => step.CotacaoId, data => data.CotacaoId)
-                    .When(data => data.Aprovada == true);  // Só emite apólice se aprovado
+                    .Input(step => step.CotacaoId, data => data.CotacaoId);
+
         }
     }
 }

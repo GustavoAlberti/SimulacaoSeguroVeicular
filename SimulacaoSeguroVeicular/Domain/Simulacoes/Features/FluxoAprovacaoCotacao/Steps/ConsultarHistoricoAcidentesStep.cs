@@ -18,6 +18,8 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Features.FluxoAprovacaoCotac
 
             var historicoAcidentes = await fakeConsultarHistoricoAcidentesService.ConsultarHistoricoAcidentesAsync(cotacao.Condutor.Cpf);
 
+            cotacao.DefinirNumeroDeAcidentes(historicoAcidentes);
+
             await unitOfWork.CommitAsync(CancellationToken.None);
 
             return ExecutionResult.Next();

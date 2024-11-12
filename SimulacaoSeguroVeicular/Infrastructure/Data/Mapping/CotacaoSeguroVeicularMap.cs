@@ -22,6 +22,9 @@ namespace SimulacaoSeguroVeicular.Infrastructure.Data.Mapping
             builder.Property(x => x.NivelDeRisco)
                 .IsRequired(false);
 
+            builder.Property(x => x.NumeroDeAcidentes)
+                .IsRequired(false);
+
             builder.Property(x => x.Status)
                 .HasDefaultValue(SeguroVeicularStatus.Pendente)
                 .IsRequired();

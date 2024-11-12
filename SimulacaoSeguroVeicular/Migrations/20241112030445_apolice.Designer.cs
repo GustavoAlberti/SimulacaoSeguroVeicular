@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimulacaoSeguroVeicular.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SimulacaoSeguroVeicular.Infrastructure.Data;
 namespace SimulacaoSeguroVeicular.Migrations
 {
     [DbContext(typeof(CotacaoDbContext))]
-    partial class CotacaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241112030445_apolice")]
+    partial class apolice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

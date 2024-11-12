@@ -15,6 +15,8 @@ namespace SimulacaoSeguroVeicular.Dominio.Simulacoes
         public bool Aprovado => DataAprovacao.HasValue;
         public decimal? ValorMercadoFipe { get; private set; } // calculado no workflow
         public int? NivelDeRisco { get; private set; } // calculado no workflow
+        public int? NumeroDeAcidentes { get; private set; } // calculado no workflow
+
         public SeguroVeicularStatus Status { get; private set; } = SeguroVeicularStatus.Pendente; //deve sempre abrir como pendente
 
         private CotacaoSeguroVeicular() {}
@@ -54,6 +56,10 @@ namespace SimulacaoSeguroVeicular.Dominio.Simulacoes
         public void DefinirNivelDeRisco(int nivelRisco)
         {
             NivelDeRisco = nivelRisco;
+        }
+        public void DefinirNumeroDeAcidentes(int numeroDeAcidentes)
+        {
+            NumeroDeAcidentes = numeroDeAcidentes;
         }
 
         public void CalcularValorSeguroTotal(decimal valorBase)

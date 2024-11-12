@@ -14,9 +14,12 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes
 
         public async Task<Maybe<CotacaoSeguroVeicular>> Obter(int id, CancellationToken cancellationToken)
         {
-            return await dbContext
-                .Cotacoes
-                .FirstAsync(c => c.Id == id, cancellationToken);
+            return (await dbContext.Cotacoes.FirstAsync(c => c.Id == id, cancellationToken)) ?? Maybe<CotacaoSeguroVeicular>.None;
+        }
+
+        public async Task AdicionarApolice(Apolice apolice, CancellationToken cancellationToken)
+        {
+            await dbContext.Apolices.AddAsync(apolice, cancellationToken);
         }
     }
 }
