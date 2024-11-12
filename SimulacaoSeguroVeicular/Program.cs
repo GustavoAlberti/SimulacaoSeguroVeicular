@@ -17,6 +17,8 @@ builder.Services.AddScoped <CotacaoRepositorio>();
 builder.Services.AddScoped<CriarCotacaoHandler>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddScoped<AprovarCotacaoHandler>();
+builder.Services.AddScoped<ReprovarCotacaoHandler>();
+
 
 builder.Services.AddWorkflow();
 builder.Services.AddWorkflowSteps();

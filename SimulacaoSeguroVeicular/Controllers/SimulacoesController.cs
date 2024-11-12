@@ -19,35 +19,12 @@ namespace SimulacaoSeguroVeicular.Controllers
             [FromServices] CriarCotacaoHandler handler,
             CancellationToken cancellationToken)
         {
-            var command = new CriarCotacaoCommand(
-                input.MarcaVeiculo,
-                input.ModeloVeiculo,
-                input.AnoVeiculo,
 
-                input.CpfProprietario,
-                input.NomeProprietario,
-                new Endereco(
-                    input.EnderecoProprietario.Cep,
-                    input.EnderecoProprietario.Rua,
-                    input.EnderecoProprietario.Bairro,
-                    input.EnderecoProprietario.Cidade,
-                    input.EnderecoProprietario.Estado),
-                input.DataNascimentoProprietario,
+            var command = CriarCotacaoCommand.Criar(input);
+            if (command.IsFailure)
+                return BadRequest(command.Error);
 
-                input.CpfCondutor,
-                input.NomeCondutor,
-                new Endereco(
-                    input.EnderecoCondutor.Cep,
-                    input.EnderecoCondutor.Rua,
-                    input.EnderecoCondutor.Bairro,
-                    input.EnderecoCondutor.Cidade,
-                    input.EnderecoCondutor.Estado),
-                input.DataNascimentoCondutor,
-
-                Enum.Parse<TipoCobertura>(input.Cobertura.Tipo, true)
-            );
-
-            var result = await handler.CriarCotacao(command, cancellationToken);
+            var result = await handler.CriarCotacao(command.Value, cancellationToken);
 
             return result.IsSuccess
                 ? Ok(result.Value)

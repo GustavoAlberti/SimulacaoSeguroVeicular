@@ -26,6 +26,7 @@ namespace SimulacaoSeguroVeicular.Infrastructure.Data.Mapping
                 .IsRequired(false);
 
             builder.Property(x => x.Status)
+                .HasConversion<string>()
                 .HasDefaultValue(SeguroVeicularStatus.Pendente)
                 .IsRequired();
 

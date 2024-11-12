@@ -6,18 +6,42 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Services
     {
         public Task<int> CalcularNivelRiscoAsync(CotacaoSeguroVeicular cotacao)
         {
-            // Cálculo da pontuação com base na idade do condutor
             int pontuacaoIdade = CalcularPontuacaoIdade(cotacao.Condutor.DataNascimento);
-
-            // Cálculo da pontuação com base no número de acidentes
             int pontuacaoHistoricoAcidentes = CalcularPontuacaoHistoricoAcidentes(cotacao.NumeroDeAcidentes);
-
-            // Cálculo da pontuação com base na localidade
             int pontuacaoLocalidade = CalcularPontuacaoLocalidade(cotacao.Condutor.Residencial.Cep);
-
             int pontuacaoTotal = pontuacaoIdade + pontuacaoHistoricoAcidentes + pontuacaoLocalidade;
 
-            return Task.FromResult(pontuacaoTotal);
+            int nivelDeRisco = CalcularTotalNivelRisco(pontuacaoTotal);
+
+            return Task.FromResult(nivelDeRisco);
+        }
+
+        private int CalcularTotalNivelRisco(int pontuacaoTotal)
+        {
+            //Classificação do Nível de Risco
+            //Com base nas pontuacoes 
+            //Pontuação Total |	Nível de Risco
+            //0 - 10 pontos   |1(Baixo)
+            //11 - 25 pontos  |2
+            //26 - 40 pontos  |3
+            //41 - 55 pontos  |4
+            //56 pontos oumais|5(Alto)
+            //Classifica o nivel de risco de 1 a 5 com base nessas informaçõs. 
+            switch (pontuacaoTotal)
+            {
+                case >= 0 and <= 10:
+                    return 1;
+                case >= 11 and <= 25:
+                    return 2;
+                case >= 26 and <= 40:
+                    return 3;
+                case >= 41 and <= 55:
+                    return 4;
+                case >= 56:
+                    return 5;
+                default:
+                    return 0;
+            }
         }
 
         private static int CalcularPontuacaoLocalidade(string cep)
@@ -61,7 +85,6 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Services
             //26 - 40 anos: 5 pontos
             //41 - 60 anos: 3 pontos
             //Acima de 60 anos: 10 pontos
-
             int idade = DateTime.Now.Year - dataNascimento.Year;
 
             switch (idade)
