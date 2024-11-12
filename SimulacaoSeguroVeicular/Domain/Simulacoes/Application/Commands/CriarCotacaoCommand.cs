@@ -58,7 +58,9 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands
 
         public static Result<CriarCotacaoCommand> Criar(CriarSimulacaoInputModel input)
         {
-
+            if (!Enum.TryParse<TipoCobertura>(input.Cobertura.Tipo, true, out var tipoCobertura))
+                return Result.Failure<CriarCotacaoCommand>($"Tipo de cobertura '{input.Cobertura.Tipo}' não é válido. Os valores válidos são: {string.Join(", ", Enum.GetNames(typeof(TipoCobertura)))}");
+            
             var command = new CriarCotacaoCommand(
                 input.MarcaVeiculo,
                 input.ModeloVeiculo,
@@ -75,7 +77,7 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands
                              input.EnderecoCondutor.Bairro, input.EnderecoCondutor.Cidade,
                              input.EnderecoCondutor.Estado),
                 input.DataNascimentoCondutor,
-                Enum.Parse<TipoCobertura>(input.Cobertura.Tipo, true)
+                tipoCobertura
             );
 
             var result = new CriarCotacaoCommandValidator().Validate(command);
