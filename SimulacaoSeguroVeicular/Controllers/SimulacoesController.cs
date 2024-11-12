@@ -13,7 +13,7 @@ namespace SimulacaoSeguroVeicular.Controllers
     public class SimulacoesController : ControllerBase
     {
 
-        [HttpPost("criar")]
+        [HttpPost("Simular")]
         public async Task<IActionResult> CriarCotacao(
             [FromBody] CriarSimulacaoInputModel input,
             [FromServices] CriarCotacaoHandler handler,

@@ -58,9 +58,10 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands
 
         public static Result<CriarCotacaoCommand> Criar(CriarSimulacaoInputModel input)
         {
-            if (!Enum.TryParse<TipoCobertura>(input.Cobertura.Tipo, true, out var tipoCobertura))
-                return Result.Failure<CriarCotacaoCommand>($"Tipo de cobertura '{input.Cobertura.Tipo}' não é válido. Os valores válidos são: {string.Join(", ", Enum.GetNames(typeof(TipoCobertura)))}");
-            
+            //if (!Enum.TryParse<TipoCobertura>(input.Cobertura.Tipo, true, out var tipoCobertura))
+            //    return Result.Failure<CriarCotacaoCommand>($"Tipo de cobertura '{input.Cobertura.Tipo}' não é válido. Os valores válidos são: {string.Join(", ", Enum.GetNames(typeof(TipoCobertura)))}");
+            Enum.TryParse<TipoCobertura>(input.Cobertura.Tipo, true, out var tipoCobertura);
+
             var command = new CriarCotacaoCommand(
                 input.MarcaVeiculo,
                 input.ModeloVeiculo,
@@ -128,8 +129,13 @@ namespace SimulacaoSeguroVeicular.Domain.Simulacoes.Application.Commands
                     .LessThan(DateTime.Now).WithMessage("A data de nascimento do condutor deve ser no passado.");
 
                 RuleFor(c => c.Cobertura)
-                    .IsInEnum().WithMessage("O tipo de cobertura selecionada é inválido.");
+                    .Must(BeAValidTipoCobertura).WithMessage("O tipo de cobertura selecionada é inválido.");
+            }
+            private bool BeAValidTipoCobertura(TipoCobertura cobertura)
+            {
+                return Enum.IsDefined(typeof(TipoCobertura), cobertura);
             }
         }
     }
+
 }
